@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">  
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='assets/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+        <title>{% block title %}{% endblock %} - THE NOTIFIER</title>
+
+        <header class="p-3 text-bg-dark">
+            <div class="container">
+                <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                    <a href="{{ url_for('index') }}">
+                        <img src="{{ url_for('static', filename='satellite.jpg') }}" class="bi" width="93" height="67" role="img"/>
+                    </a> 
+
+                    <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                        <li><a href="{{ url_for('calendar.calendar') }}" class="nav-link px-2 text-white">Calendar</a></li>
+                        <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
+                    </ul>
+
+                    <div class="text-end">
+                        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                            {% if g.user %}
+                                <li><a href="{{ url_for('auth.logout') }}" class="nav-link px-2 text-secondary">Logout</a></li>
+                            {% else %}
+                                <li><a href="{{ url_for('auth.login') }}" class="nav-link px-2 text-secondary">Login</a></li>
+                            {% endif %}
+                        {% if g.user['username'] == 'matthew' %}
+                        <li><a href="{{ url_for('editor.editor') }}" class="nav-link px-2 text-secondary">Editor</a></li>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </header> 
+
+        {% block header %}{% endblock %}
+    </head>
+
+    <body>
+    <div class="container">
+        <section class="content border border-dark">
+
+            {% for message in get_flashed_messages() %}
+                <div class="flash">{{ message }}</div>
+            {% endfor %}
+
+            {% block content %}{% endblock %}
+        </section>
+        
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-topi">
+            <p class="col-md-4 mb-0 text-body-secondary">&copy; 2023 GM</p> 
+
+            <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                <img class="bi me-2" width="46" height="33" src="{{ url_for('static', filename='pirate-jack-rackham.svg') }}"/>
+            </a>
+
+            <ul class="nav col-md-4 justify-content-end">
+                <li class="nav-item"><a href="{{ url_for('about.about') }}" class="nav-link px-2 text-body-secondary">About</a></li>
+            </ul>     
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='assets/dist/js/bootstrap.bundle.min.js') }}"></script>
+    </body>
+</html>

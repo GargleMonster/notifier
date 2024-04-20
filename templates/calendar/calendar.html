@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block header %}
+<title>{% block title %}CALENDAR{% endblock %}</title>
+    
+    <script defer src="static/calendar.js"></script>
+    <link rel="stylesheet" href="static/calendar.css">
+{% endblock %}
+
+{% block content %}
+    <h3 align="middle">{{ datetime }}</h3>
+    <div id="calHead" class="p-3 text-bg-dark">
+        <div id="calPeriod">
+            <input id="calBack" type="button" class="mi" value="&lt;">
+            <select id="calMonth"></select>
+            <input id="calYear" type="number">
+            <input id="calNext" type="button" class="mi" value="&gt;">
+        </div>
+        <input id="calAdd" type="button" class="mi" value="+">
+    </div>
+
+    <!-- (B) CALENDAR WRAPPER -->
+    <div id="calWrap">
+      <div id="calDays"></div>
+      <div id="calBody" class="p-3 text-bg-dark"></div>
+    </div>
+
+    <!-- (C) EVENT FORM -->
+    <dialog id="calForm"><form method="dialog">
+        <div id="evtCX">X</div>
+            <h2 class="evt100">CALENDAR EVENT</h2>
+            <div class="evt50">
+                <label>Start</label>
+                <input id="evtStart" type="datetime-local" required>
+            </div>
+            <div class="evt50">
+                <label>End</label>
+                <input id="evtEnd" type="datetime-local" required>
+            </div>
+            <div class="evt50">
+                <label>Text Color</label>
+                <input id="evtColor" type="color" value="#000000" required>
+            </div>
+            <div class="evt50">
+                <label>Background Color</label>
+                <input id="evtBG" type="color" value="#ffdbdb" required>
+            </div>
+            <div class="evt100">
+                <label>Event</label>
+                <input id="evtTxt" type="text" required>
+            </div>
+            <div class="evt100">
+                {% if g.user %}
+                <input type="hidden" id="evtID">
+                <input type="button" id="evtDel" value="Delete">
+                <input type="submit" id="evtSave" value="Save">
+                {% else %}
+                <input type="hidden" id="evtID" disabled >
+                <input type="button" id="evtDel" value="Delete" disabled >
+                <input type="submit" id="evtSave" value="Save" disabled >
+                {% endif %}
+        </div>
+    </form></dialog>
+{% endblock %}

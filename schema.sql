@@ -1,0 +1,29 @@
+DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS notices;
+DROP TABLE IF EXISTS events;
+
+CREATE TABLE user (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  username TEXT UNIQUE NOT NULL,
+  password TEXT NOT NULL
+);
+
+CREATE TABLE notices (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  author_id INTEGER NOT NULL,
+  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  message TEXT NOT NULL,
+  FOREIGN KEY (author_id) REFERENCES user (id)
+);
+
+CREATE TABLE events (
+  id INTEGER,
+  start DATETIME,
+  end DATETIME,
+  text TEXT NOT NULL,
+  color TEXT NOT NULL,
+  bg TEXT NOT NULL,
+  PRIMARY KEY("id" AUTOINCREMENT)
+);
+CREATE INDEX idx_start ON events (start);
+CREATE INDEX idx_end ON events (end);

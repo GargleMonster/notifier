@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h3>{% block title %}New Post{% endblock %}</h3>
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        <label for="message">Body</label>
+        <textarea name="message" id="message" maxlength="79" placeholder="Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...">{{ request.form['message'] }}</textarea>
+        <div style="display:inline-block">
+            <input type="submit" name="submit" value="Save">
+            <input type="submit" name="submit" value="Cancel">
+        </div>
+    </form>
+{% endblock %}
